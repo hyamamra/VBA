@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="jp"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title><link rel="stylesheet" href="style.css"></head><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><body><pre><code><span class="reserved-word">Private</span> <span class="reserved-word">Function</span> <span class="procedure">最終行を取得</span><span class="sign">(</span><span class="reserved-word">ByVal</span> <span class="argument">シート</span> <span class="reserved-word">As</span> Worksheet<span class="sign">,</span> <span class="reserved-word">ByVal</span> <span class="argument">列</span> <span class="reserved-word">As</span> Long<span class="sign">)</span> <span class="reserved-word">As</span> Long
+    <span class="comment">'値の入った最も下のセルの行番号を取得します。</span>
+    <span class="comment">'値の入ったセルがなければ1を返します。</span>
+    <span class="comment">'関数が入ったセルやエラーのセルも値の入ったセルとして判定します。</span>
+
+    <span class="comment">'引数</span>
+        <span class="comment">'シート As Worksheet</span>
+        <span class="comment">'探索するシート</span>
+
+        <span class="comment">'列 As Long</span>
+        <span class="comment">'探索する列</span>
+
+    <span class="comment">'戻り値</span>
+        <span class="comment">'As Long</span>
+        <span class="comment">'値の入った最も下のセルの行番号</span>
+
+
+    <span class="reserved-word">Dim</span> <span class="identifier">終端セル</span> <span class="reserved-word">As</span> Range
+    <span class="reserved-word">Set</span> <span class="identifier">終端セル</span> <span class="symbol">=</span> <span class="argument">シート</span><span class="sign">.</span>Cells<span class="sign">(</span><span class="argument">シート</span><span class="sign">.</span>Rows<span class="sign">.</span>Count<span class="sign">,</span> <span class="argument">列</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">最終行</span> <span class="reserved-word">As</span> Long
+    <span class="reserved-word">If</span> TypeName<span class="sign">(</span><span class="identifier">終端セル</span><span class="sign">.</span>Value<span class="sign">)</span> <span class="symbol">=</span> <span class="string">"Empty"</span> <span class="reserved-word">Then</span>
+        <span class="identifier">最終行</span> <span class="symbol">=</span> <span class="identifier">終端セル</span><span class="sign">.</span>End<span class="sign">(</span>xlUp<span class="sign">)</span><span class="sign">.</span>Row
+    <span class="reserved-word">Else</span>
+        <span class="identifier">最終行</span> <span class="symbol">=</span> <span class="identifier">終端セル</span><span class="sign">.</span>Row
+    <span class="reserved-word">End</span> <span class="reserved-word">If</span>
+
+    <span class="procedure">最終行を取得</span> <span class="symbol">=</span> <span class="identifier">最終行</span>
+<span class="reserved-word">End</span> <span class="reserved-word">Function</span>
+</code></pre></body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="jp"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title><link rel="stylesheet" href="style.css"></head><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><body><pre><code><span class="reserved-word">Private</span> <span class="reserved-word">Function</span> <span class="procedure">csvをジャグ配列に変換</span><span class="sign">(</span> <span class="sign">_</span>
+    <span class="reserved-word">ByVal</span> <span class="argument">PathName</span> <span class="reserved-word">As</span> String<span class="sign">,</span> <span class="sign">_</span>
+    <span class="reserved-word">Optional</span> <span class="reserved-word">ByVal</span> <span class="argument">Charset</span> <span class="reserved-word">As</span> String <span class="symbol">=</span> <span class="string">"Shift-JIS"</span><span class="sign">)</span> <span class="reserved-word">As</span> Variant<span class="sign">(</span><span class="sign">)</span>
+    <span class="comment">'csvファイルを読み込み、ジャグ配列に変換して返します。</span>
+
+    <span class="comment">'引数</span>
+        <span class="comment">'PathName As String</span>
+        <span class="comment">'csvファイルのパス</span>
+
+        <span class="comment">'Charset As String</span>
+        <span class="comment">'(省略可) csvファイルの文字セット (既定値: "Shift-JIS")</span>
+
+
+    <span class="reserved-word">Dim</span> <span class="identifier">csvテキスト</span> <span class="reserved-word">As</span> String
+    <span class="identifier">csvテキスト</span> <span class="symbol">=</span> テキストファイルを読込<span class="sign">(</span><span class="argument">PathName</span><span class="sign">,</span> <span class="argument">Charset</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">csv</span><span class="sign">(</span><span class="sign">)</span> <span class="reserved-word">As</span> String
+    <span class="identifier">csv</span><span class="sign">(</span><span class="sign">)</span> <span class="symbol">=</span> Split<span class="sign">(</span><span class="identifier">csvテキスト</span><span class="sign">,</span> vbNewLine<span class="sign">)</span>
+    
+    <span class="reserved-word">Dim</span> <span class="identifier">行数</span> <span class="reserved-word">As</span> Long
+    <span class="identifier">行数</span> <span class="symbol">=</span> UBound<span class="sign">(</span><span class="identifier">csv</span><span class="sign">(</span><span class="sign">)</span><span class="sign">)</span> <span class="symbol">-</span> <span class="number">1</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">ジャグ配列</span><span class="sign">(</span><span class="sign">)</span> <span class="reserved-word">As</span> Variant
+    <span class="reserved-word">ReDim</span> <span class="identifier">ジャグ配列</span><span class="sign">(</span><span class="identifier">行数</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">行</span> <span class="reserved-word">As</span> Long
+    <span class="reserved-word">For</span> <span class="identifier">行</span> <span class="symbol">=</span> <span class="number">0</span> <span class="reserved-word">To</span> <span class="identifier">行数</span>
+        <span class="identifier">ジャグ配列</span><span class="sign">(</span><span class="identifier">行</span><span class="sign">)</span> <span class="symbol">=</span> Split<span class="sign">(</span><span class="identifier">csv</span><span class="sign">(</span><span class="identifier">行</span><span class="sign">)</span><span class="sign">,</span> <span class="string">","</span><span class="sign">)</span>
+    <span class="reserved-word">Next</span>
+
+    <span class="procedure">csvをジャグ配列に変換</span> <span class="symbol">=</span> <span class="identifier">ジャグ配列</span><span class="sign">(</span><span class="sign">)</span>
+
+<span class="reserved-word">End</span> <span class="reserved-word">Function</span>
+
+
+<span class="reserved-word">Private</span> <span class="reserved-word">Function</span> <span class="procedure">テキストファイルを読込</span><span class="sign">(</span> <span class="sign">_</span>
+    <span class="reserved-word">ByVal</span> <span class="argument">PathName</span> <span class="reserved-word">As</span> String<span class="sign">,</span> <span class="sign">_</span>
+    <span class="reserved-word">Optional</span> <span class="reserved-word">ByVal</span> <span class="argument">Charset</span> <span class="reserved-word">As</span> String <span class="symbol">=</span> <span class="string">"Unicode"</span><span class="sign">)</span> <span class="reserved-word">As</span> String
+    <span class="comment">'txt, log, csvなどのテキストファイルを読み込みます。</span>
+
+    <span class="comment">'引数</span>
+        <span class="comment">'PathName As String</span>
+        <span class="comment">'テキストファイルのパス</span>
+
+        <span class="comment">'Charset As String</span>
+        <span class="comment">'(省略可) テキストファイルの文字セット (既定値: "Unicode")</span>
+        <span class="comment">'文字セットの例: "UTF-8", "Shift-JIS" etc.</span>
+
+    <span class="comment">'参照設定</span>
+        <span class="comment">'Microsoft ActiveX Data Objects 2.8 Library</span>
+
+
+    <span class="reserved-word">If</span> Dir<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span> <span class="symbol">=</span> <span class="string">""</span> <span class="reserved-word">Then</span>
+        <span class="reserved-word">Call</span> Err<span class="sign">.</span>Raise<span class="sign">(</span> <span class="sign">_</span>
+            <span class="number">513</span><span class="sign">,</span> <span class="sign">_</span>
+            <span class="string">"テキストファイルを読込"</span><span class="sign">,</span> <span class="sign">_</span>
+            <span class="argument">PathName</span> <span class="symbol">&</span> <span class="string">" が見つかりません。"</span><span class="sign">)</span>
+    <span class="reserved-word">End</span> <span class="reserved-word">If</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">stream</span> <span class="reserved-word">As</span> ADODB<span class="sign">.</span>stream
+    <span class="reserved-word">Set</span> <span class="identifier">stream</span> <span class="symbol">=</span> <span class="reserved-word">New</span> ADODB<span class="sign">.</span>stream
+
+    <span class="reserved-word">With</span> <span class="identifier">stream</span>
+        <span class="sign">.</span>Charset <span class="symbol">=</span> <span class="argument">Charset</span>
+        <span class="reserved-word">Call</span> <span class="sign">.</span>Open
+        <span class="reserved-word">Call</span> <span class="sign">.</span>LoadFromFile<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span>
+        <span class="procedure">テキストファイルを読込</span> <span class="symbol">=</span> <span class="sign">.</span>ReadText
+        <span class="reserved-word">Call</span> <span class="sign">.</span>Close
+    <span class="reserved-word">End</span> <span class="reserved-word">With</span>
+
+<span class="reserved-word">End</span> <span class="reserved-word">Function</span></code></pre></body></html>
