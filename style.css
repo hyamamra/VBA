@@ -1,0 +1,49 @@
+body {
+  background-color: rgb(17, 23, 31);
+}
+
+code {
+  font-family: "JetBrains Mono";
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.7em;
+  color: rgb(219, 219, 219);
+}
+
+.comment {
+  color: gray;
+}
+
+.string {
+  color: rgb(56, 143, 88);
+}
+
+.reserved-word {
+  color: rgb(196, 87, 118);
+}
+
+/* .type {} */
+
+/* .procedure {} */
+
+.argument {
+  color: rgb(133, 188, 201);
+}
+
+.identifier {
+  color: rgb(133, 188, 201);
+}
+
+.number {
+  color: rgb(221, 180, 104);
+}
+
+.symbol {
+  color: rgb(170, 170, 170);
+}
+
+.sign {
+  color: rgb(170, 170, 170);
+}
+
+/* .other {} */
