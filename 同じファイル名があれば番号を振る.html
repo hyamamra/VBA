@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="jp"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title><link rel="stylesheet" href="style.css"></head><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><body><pre><code><span class="reserved-word">Private</span> <span class="reserved-word">Function</span> <span class="procedure">同じファイル名があれば番号を振る</span><span class="sign">(</span><span class="reserved-word">ByVal</span> <span class="argument">PathName</span> <span class="reserved-word">As</span> String<span class="sign">)</span> <span class="reserved-word">As</span> String
+    <span class="comment">'同じ名前のファイルがすでに存在する場合は、ファイル名の末尾に番号を振ります。</span>
+
+
+    <span class="reserved-word">Dim</span> <span class="identifier">fso</span> <span class="reserved-word">As</span> <span class="reserved-word">New</span> FileSystemObject
+
+    <span class="reserved-word">Dim</span> <span class="identifier">parentFoldorName</span> <span class="reserved-word">As</span> String
+    <span class="identifier">parentFoldorName</span> <span class="symbol">=</span> <span class="identifier">fso</span><span class="sign">.</span>GetParentFolderName<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">baseFileName</span> <span class="reserved-word">As</span> String
+    <span class="identifier">baseFileName</span> <span class="symbol">=</span> <span class="identifier">fso</span><span class="sign">.</span>GetBaseName<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">extentionName</span> <span class="reserved-word">As</span> String
+    <span class="identifier">extentionName</span> <span class="symbol">=</span> <span class="identifier">fso</span><span class="sign">.</span>GetExtensionName<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span>
+
+    <span class="reserved-word">Dim</span> <span class="identifier">number</span> <span class="reserved-word">As</span> Long
+    <span class="identifier">number</span> <span class="symbol">=</span> <span class="number">2</span>
+
+    <span class="reserved-word">Do</span> <span class="reserved-word">While</span> <span class="symbol">Not</span> Dir<span class="sign">(</span><span class="argument">PathName</span><span class="sign">)</span> <span class="symbol">=</span> <span class="string">""</span>
+        <span class="argument">PathName</span> <span class="symbol">=</span> <span class="identifier">parentFoldorName</span> <span class="symbol">&</span> <span class="string">"\"</span> <span class="symbol">&</span> <span class="identifier">baseFileName</span> <span class="symbol">&</span> <span class="identifier">number</span> <span class="symbol">&</span> <span class="string">"."</span> <span class="symbol">&</span> <span class="identifier">extentionName</span>
+        <span class="identifier">number</span> <span class="symbol">=</span> <span class="identifier">number</span> <span class="symbol">+</span> <span class="number">1</span>
+    <span class="reserved-word">Loop</span>
+
+    <span class="procedure">同じファイル名があれば番号を振る</span> <span class="symbol">=</span> <span class="argument">PathName</span>
+
+<span class="reserved-word">End</span> <span class="reserved-word">Function</span></code></pre></body></html>
